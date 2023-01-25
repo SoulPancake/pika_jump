@@ -19,7 +19,9 @@ Once Flutter is installed, you can clone this repository and run the game on you
 
 ## Screenshots
 
-[Insert screenshots of the game here]
+![Screenshot_20230125-110750](https://user-images.githubusercontent.com/70265851/214489019-0e5fb5bb-f7fc-4fdd-b06d-86885073bad2.png)
+![Screenshot_20230125-110823](https://user-images.githubusercontent.com/70265851/214489023-7eb4e6b0-0a5d-42f7-9dcd-b52977a34701.png)
+
 
 ## Contribution
 
