@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:audioplayers/audioplayers.dart';
+// import 'package:audioplayers/audioplayers.dart';
 import 'package:flappy_guthrie/barrier.dart';
 import 'package:flappy_guthrie/guthrie.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +17,8 @@ class _HomePageState extends State<HomePage> {
 
   static double birdY=0; //Initially we'll place the block on the center
   // We'll Write a Method to simulate the jumps!
-  AudioCache cache=AudioCache(); // you have this
-  AudioPlayer player=AudioPlayer(); // create this
+  // AudioCache cache=AudioCache(); // you have this
+  // AudioPlayer player=AudioPlayer(); // create this
  double initialPosition= birdY;
  double height=0;
  double time=0;
@@ -43,12 +43,13 @@ class _HomePageState extends State<HomePage> {
     [0.6,0.4],
     [0.4,0.6],
   ];
+  List<bool> barrierPassed=[false, false];
   void _playFile() async{
-    player = await cache.play('aud.wav'); // assign player here
+    // player = await cache.play('aud.wav'); // assign player here
   }
 
   void _stopFile() {
-    player.stop(); // stop the file like this
+    // player.stop(); // stop the file like this
   }
 
   //This is now literally Perfect heheheheh
@@ -99,10 +100,18 @@ class _HomePageState extends State<HomePage> {
 
       //Moving the barriers
       moveMap();
-
+      
+      // Update score when passing barriers
+      for(int i=0;i<barrierX.length;i++)
+      {
+        if(barrierX[i]<-birdWidth && !barrierPassed[i])
+        {
+          barrierPassed[i]=true;
+          score++;
+        }
+      }
 
       time+=0.05; //Keep the time moving forward
-      score++;
     });
   }
 
@@ -113,6 +122,13 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           barrierX[i]-=0.005;
         });
+        
+        // Recycle barriers that have moved off screen
+        if(barrierX[i]<-1.5)
+        {
+          barrierX[i]+=3.5;
+          barrierPassed[i]=false;
+        }
       }
   }
 
@@ -127,6 +143,7 @@ class _HomePageState extends State<HomePage> {
       time=0;
       initialPosition=birdY;
       barrierX=[2,2+1.5];
+      barrierPassed=[false, false];
     });
   }
 
@@ -232,29 +249,29 @@ class _HomePageState extends State<HomePage> {
 
 
                   //this is the top barrier zero
-                  // MyBarrier(isThisTheBottomBarrier: false,
-                  // barrierX: barrierX[0],
-                  // barrierWidth: barrierWidth,
-                  // barrierHeight: barrierHeight[0][0],),
-                  //
-                  // //Bottom barrier zero
-                  // MyBarrier(isThisTheBottomBarrier: true,
-                  // barrierX: barrierX[0],
-                  // barrierWidth: barrierWidth,
-                  // barrierHeight: [0][1],),
-                  //
-                  // //top barrier 1
-                  //
-                  // MyBarrier(isThisTheBottomBarrier: false,barrierX: barrierX[0],
-                  // barrierWidth: barrierWidth,
-                  // barrierHeight: barrierHeight[1][0],),
-                  //
-                  // //Bottom Barrier 1
-                  // MyBarrier(isThisTheBottomBarrier: true,
-                  // barrierX: barrierX[1],
-                  //   barrierWidth: barrierWidth,
-                  //   barrierHeight: barrierHeight[1][1],
-                  // ),
+                  MyBarrier(isThisTheBottomBarrier: false,
+                  barrierX: barrierX[0],
+                  barrierWidth: barrierWidth,
+                  barrierHeight: barrierHeight[0][0],),
+                  
+                  //Bottom barrier zero
+                  MyBarrier(isThisTheBottomBarrier: true,
+                  barrierX: barrierX[0],
+                  barrierWidth: barrierWidth,
+                  barrierHeight: barrierHeight[0][1],),
+                  
+                  //top barrier 1
+                  
+                  MyBarrier(isThisTheBottomBarrier: false,barrierX: barrierX[1],
+                  barrierWidth: barrierWidth,
+                  barrierHeight: barrierHeight[1][0],),
+                  
+                  //Bottom Barrier 1
+                  MyBarrier(isThisTheBottomBarrier: true,
+                  barrierX: barrierX[1],
+                    barrierWidth: barrierWidth,
+                    barrierHeight: barrierHeight[1][1],
+                  ),
 
             ],
               ),
