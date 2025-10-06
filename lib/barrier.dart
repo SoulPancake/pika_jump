@@ -22,10 +22,20 @@ class MyBarrier extends StatelessWidget {
       //If it is the bottom barrier it is going to be aligned at 1
 
       child: Container(
-        color:Colors.green,
+        decoration: BoxDecoration(
+          color: Colors.yellow[700],
+          border: Border.all(color: Colors.black, width: 3),
+          borderRadius: BorderRadius.circular(10),
+        ),
         width: MediaQuery.of(context).size.width*barrierWidth/2,
         height: MediaQuery.of(context).size.height*3/4*barrierHeight/2,
-
+        child: Center(
+          child: Icon(
+            Icons.flash_on,
+            color: Colors.black,
+            size: 40,
+          ),
+        ),
       ),
     );
   }
